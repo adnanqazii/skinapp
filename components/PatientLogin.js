@@ -12,6 +12,8 @@ import {
   KeyboardAvoidingView,
   Button
 } from 'react-native';
+import Axios from 'axios'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
  
@@ -23,11 +25,11 @@ const PatientLogin = ({navigation,route}) => {
   const [login,setLogin]=useState(false);
  
   const passwordInputRef = createRef();
-  console.log("Value1:",route.params.values.userEmail)
+  // console.log("Value1:",route.params.values.userEmail)
   const saveData = async () => {
     try {
-      await AsyncStorage.setItem("Email",route.params.inputs.userEmail );
-      await AsyncStorage.setItem("Password",route.params.inputs.userPassword);
+      await AsyncStorage.setItem("Email",userEmail );
+      await AsyncStorage.setItem("Password",userPassword);
       alert('Data successfully saved')
     } catch (e) {
       alert('Failed to save the data to the storage')
@@ -35,13 +37,25 @@ const PatientLogin = ({navigation,route}) => {
   }
   const readData = async () => {
     try {
-      const read_email = await AsyncStorage.getItem('Email');
-      const read_password = await AsyncStorage.getItem('Password');
-      if (read_email !== null && read_password!==null) {
-        setLogin(true);
-          navigation.navigate('PatientHome');
+     
+      const userEmail = await AsyncStorage.getItem('Email');
+      const userPassword = await AsyncStorage.getItem('Password');
+      const inputs={userEmail,userPassword}
+      Axios.post("http://localhost:3001/patient_login", inputs)
+      .then((response) => {
+        if (response.status === 200) {
+          console.log(response);
+          const p = response.data[0];
+          setLogin(true);
+          navigation.navigate('Home');
           console.log("Success1");
-      }
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("Wrong username /Password");
+        setError("Incorrect email or password");
+      });
     } 
     catch (e) {
       alert('Failed to fetch the input from storage');
@@ -62,12 +76,23 @@ const PatientLogin = ({navigation,route}) => {
       alert('Please fill Password');
       return;
     }
-    if(userEmail===route.params.values.userEmail && userPassword===route.params.values.userPassword)
-    {
-        setLogin(true);
-        navigation.navigate('PatientHome');
-        console.log("Success");
-    }
+    const inputs={userEmail,userPassword}
+      console.log({inputs})
+      Axios.post("http://localhost:3001/patient_login", inputs)
+      .then((response) => {
+        if (response.status === 200) {
+          console.log(response);
+          const p = response.data[0];
+          setLogin(true);
+          navigation.navigate('Home');
+          console.log("Success1");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("Wrong username /Password");
+        setError("Incorrect email or password");
+      });
    
   };
  

@@ -11,6 +11,7 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'react-native';
+import Axios from 'axios'
 
   const PatientSignup = ({navigation}) => {
   const [values, setValues] = useState({ userName: '', userEmail: '',userPassword:'',ConfirmUserPassword:'',userAge:'',userAddress:''});
@@ -60,7 +61,24 @@ import {
       alert('Passwords Does not match!!');
       return;
     }
-    
+    // Axios.post("http://localhost:3001/patient_signup", inputs)
+    //     .then((res) => {
+    //       console.log({res});
+    //       // setemp_id1(res.data.insertId);
+    //     })
+    //     .catch((err) => {
+    //       setError(err.Error);
+    //       console.log("This is error", err);
+    //     });
+    Axios.post("http://localhost:3001/patient_signup", values)
+    .then((res) => {
+      console.log({res});
+      // setemp_id1(res.data.insertId);
+    })
+    .catch((err) => {
+      setErrortext(err.Error);
+      console.log("This is error", JSON.stringify(err));
+    });
     setIsRegistraionSuccess(true)
   };
   if (isRegistraionSuccess) {

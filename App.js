@@ -22,8 +22,7 @@ export default function App() {
    
      
       <NavigationContainer>
-      <Text>Hello world122</Text>
-      <Stack.Navigator initialRouteName="PatientHome">
+      <Stack.Navigator initialRouteName="DoctorLogin">
       <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
       <Stack.Screen name="DoctorSignup" component={DoctorSignup} />
       <Stack.Screen name="DoctorLogin" component={DoctorLogin} />

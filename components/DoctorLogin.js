@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
+import Axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -22,11 +23,11 @@ const DoctorLogin = ({navigation,route}) => {
     const [login,setLogin]=useState(false);
    
     const passwordInputRef = createRef();
-    console.log("Value1:",route.params.inputs.userEmail)
+    // console.log("Value1:",route.params.inputs.userEmail)
     const saveData = async () => {
     try {
-      await AsyncStorage.setItem("Email",route.params.inputs.userEmail );
-      await AsyncStorage.setItem("Password",route.params.inputs.userPassword);
+      await AsyncStorage.setItem("Email",userEmail );
+      await AsyncStorage.setItem("Password",userPassword);
       alert('Data successfully saved')
     } catch (e) {
       alert('Failed to save the data to the storage')
@@ -34,13 +35,25 @@ const DoctorLogin = ({navigation,route}) => {
   }
   const readData = async () => {
     try {
-      const read_email = await AsyncStorage.getItem('Email');
-      const read_password = await AsyncStorage.getItem('Password');
-      if (read_email !== null && read_password!==null) {
-        setLogin(true);
+      const userEmail = await AsyncStorage.getItem('Email');
+      const userPassword = await AsyncStorage.getItem('Password');
+      const inputs={userEmail,userPassword}
+      console.log({inputs})
+      Axios.post("http://localhost:3001/doctor_login", inputs)
+      .then((response) => {
+        if (response.status === 200) {
+          console.log(response);
+          const p = response.data[0];
+          setLogin(true);
           navigation.navigate('Home');
           console.log("Success1");
-      }
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("Wrong username /Password");
+        setError("Incorrect email or password");
+      });
     } 
     catch (e) {
       alert('Failed to fetch the input from storage');
@@ -61,13 +74,24 @@ const DoctorLogin = ({navigation,route}) => {
         alert('Please fill Password');
         return;
       }
-      if(userEmail===route.params.inputs.userEmail && userPassword===route.params.inputs.userPassword)
-      {
+      const inputs={userEmail,userPassword}
+      Axios.post("http://localhost:3001/doctor_login", inputs)
+      .then((response) => {
+        if (response.status === 200) {
+          console.log(response);
+          const p = response.data[0];
           setLogin(true);
           saveData();
           navigation.navigate('Home');
           console.log("Success");
-      }
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("Wrong username /Password");
+        setError("Incorrect email or password");
+      });
+     
      
     };
    
