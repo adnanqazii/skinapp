@@ -75,7 +75,7 @@ const [errortext, setErrortext] = useState('');
       alert('Passwords Does not match!!');
       return;
     }
-    Axios.post("http://localhost:3001/doctor_signup", inputs)
+    Axios.post("http://192.168.0.105:3001/doctor_signup", inputs)
         .then((res) => {
           console.log({res});
           // setemp_id1(res.data.insertId);
@@ -89,7 +89,7 @@ const [errortext, setErrortext] = useState('');
 
   };
   if (isRegistraionSuccess) {
-    setIsRegistraionSuccess(false)
+    // setIsRegistraionSuccess(false)
     return (
       <SafeAreaView
         style={{
@@ -104,7 +104,7 @@ const [errortext, setErrortext] = useState('');
         <TouchableOpacity
           style={styles.buttonStyle}
           activeOpacity={0.5}
-          onPress={navigation.navigate('DoctorLogin',{inputs})}>
+          onPress={()=>navigation.navigate('DoctorLogin',{inputs})}>
           <Text style={styles.buttonTextStyle}>Login Now</Text>
         </TouchableOpacity>
       </SafeAreaView>

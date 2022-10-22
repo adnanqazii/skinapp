@@ -1,5 +1,5 @@
 
-import React, {useState, createRef,useEffect} from 'react';
+import React, {useState, createRef,useEffect,useContext} from 'react';
 import {
   StyleSheet,
   TextInput,
@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import Axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { PatientContext } from '../contexts';
 
  
 const PatientLogin = ({navigation,route}) => {
@@ -23,7 +23,7 @@ const PatientLogin = ({navigation,route}) => {
   const [loading, setLoading] = useState(false);
   const [errortext, setErrortext] = useState('');
   const [login,setLogin]=useState(false);
- 
+  const [patient,setPatient]=useContext(PatientContext)
   const passwordInputRef = createRef();
   // console.log("Value1:",route.params.values.userEmail)
   const saveData = async () => {
@@ -41,20 +41,20 @@ const PatientLogin = ({navigation,route}) => {
       const userEmail = await AsyncStorage.getItem('Email');
       const userPassword = await AsyncStorage.getItem('Password');
       const inputs={userEmail,userPassword}
-      Axios.post("http://localhost:3001/patient_login", inputs)
+      Axios.post("http://192.168.0.105:3001/patient_login", inputs)
       .then((response) => {
         if (response.status === 200) {
-          console.log(response);
-          const p = response.data[0];
+          console.log(response.data);
+          setPatient(response.data)
           setLogin(true);
-          navigation.navigate('Home');
+          navigation.navigate('PatientHome');
           console.log("Success1");
         }
       })
       .catch((err) => {
         console.log(err);
         console.log("Wrong username /Password");
-        setError("Incorrect email or password");
+        setErrortext("Incorrect email or password");
       });
     } 
     catch (e) {
@@ -78,20 +78,21 @@ const PatientLogin = ({navigation,route}) => {
     }
     const inputs={userEmail,userPassword}
       console.log({inputs})
-      Axios.post("http://localhost:3001/patient_login", inputs)
+      Axios.post("http://192.168.0.105:3001/patient_login", inputs)
       .then((response) => {
         if (response.status === 200) {
           console.log(response);
           const p = response.data[0];
+          setPatient(response.data)
           setLogin(true);
-          navigation.navigate('Home');
+          navigation.navigate('PatientHome');
           console.log("Success1");
         }
       })
       .catch((err) => {
         console.log(err);
         console.log("Wrong username /Password");
-        setError("Incorrect email or password");
+        setErrortext("Incorrect email or password");
       });
    
   };

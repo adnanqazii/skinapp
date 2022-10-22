@@ -85,7 +85,8 @@ app.post("/doctor_login", async (req, res) => {
         if (validPass) {
           console.log(result);
           // res.send(result).status(200);
-          res.status(200).send(result);
+          const {id,name,qualification,experience,timing,charges,speciality,pmdcid}=result[0];
+          res.status(200).send({id,name,qualification,experience,timing,charges,speciality,pmdcid});
         } else {
           console.log("wrong username pass");
           // res.send({ message: "Wrong Username/Password" }).status(404);
@@ -102,7 +103,7 @@ app.post("/doctor_login", async (req, res) => {
 
 app.post("/patient_login", async (req, res) => {
   const email = req.body.userEmail;
-  const password = req.body.userPassword;
+  const password = String(req.body.userPassword);
   const hash = await bcrypt.hash(password, 10);
   console.log(email, password, hash);
   db.query(
@@ -112,6 +113,7 @@ app.post("/patient_login", async (req, res) => {
       if (err) {
         res.send({ err: err });
       }
+
       if (result.length > 0) {
         // console.log(result[0].Password);
         console.log({ result });
@@ -119,8 +121,9 @@ app.post("/patient_login", async (req, res) => {
         console.log(validPass);
         if (validPass) {
           console.log(result);
+          const {name,age,gender,id}=result[0]
           // res.send(result).status(200);
-          res.status(200).send(result);
+          res.status(200).send({name,age,gender,id:id});
         } else {
           console.log("wrong username pass");
           // res.send({ message: "Wrong Username/Password" }).status(404);
@@ -268,10 +271,10 @@ app.post("/company_login", async (req, res) => {
   //   console.log("user not found");
   // }
 });
-app.get("/viewJobs", async (req, res) => {
+app.get("/doctors_for_patient", async (req, res) => {
   console.log("jobs viewing");
   db.query(
-    "SELECT J.*, C.comp_name,C.comp_loc FROM JOBS J, COMPANY C where J.comp_id=C.comp_id ",
+    "SELECT id,name,speciality,experience,timing,charges from doctor",
 
     (err, result) => {
       if (err) {
@@ -283,6 +286,42 @@ app.get("/viewJobs", async (req, res) => {
     }
   );
 });
+app.post("/patient_appointments", async (req, res) => {
+  console.log("jobs viewing");
+  const patient_id=req.body.id;
+  console.log(req.body)
+  db.query(
+    "SELECT * from appointment where patient_id=?",
+    [patient_id],
+    (err, result) => {
+      if (err) {
+        res.send({ err: err });
+      } else {
+        console.log(result);
+        res.status(200).send(result);
+      }
+    }
+  );
+});
+
+app.post("/doctor_appointments", async (req, res) => {
+  console.log("jobs viewing");
+  const doctor_id=req.body.id;
+  console.log(req.body)
+  db.query(
+    "SELECT * from appointment where doctor_id=?",
+    [doctor_id],
+    (err, result) => {
+      if (err) {
+        res.send({ err: err });
+      } else {
+        console.log(result);
+        res.status(200).send(result);
+      }
+    }
+  );
+});
+
 app.get("/viewEmployeeDetails", async (req, res) => {
   console.log("Employee details viewing");
   db.query(
@@ -386,34 +425,18 @@ app.post("/deletejob", async (req, res) => {
     }
   );
 });
-app.post("/addJobs", async (req, res) => {
+app.post("/get_appointment", async (req, res) => {
   console.log("data");
   console.log(req.body);
-  const job_title = req.body.title;
-  const job_desc = req.body.desc;
-  const job_skills = req.body.skills;
-  const job_years_of_experience = req.body.years_of_experience;
-  const job_no_of_positions = req.body.no_of_positions;
-  const job_salary = req.body.salary;
-  const job_career_level = req.body.career_level;
-  // const job_date = req.body.date;
-  const job_company = req.body.job_company;
-  const job_comp_id = req.body.job_comp_id;
-  const job_type = req.body.job_type;
-  const job_category = req.body.job_category;
+  const patient_id = req.body.patient_id;
+  const doctor_id = req.body.doctor_id;
+  const disease = req.body.disease;
+  const timing = req.body.timing;
+
   db.query(
-    "INSERT INTO JOBS (job_title,job_sal,job_desc,job_skills,job_type,job_category,comp_id,job_career_level,job_no_position,job_years_of_experience)Values(?,?,?,?,?,?,?,?,?,?) ",
+    "INSERT INTO appointment (patient_id,doctor_id,disease,timing,taken_place)Values(?,?,?,?,?) ",
     [
-      job_title,
-      job_salary,
-      job_desc,
-      job_skills,
-      job_type,
-      job_category,
-      job_comp_id,
-      job_career_level,
-      job_no_of_positions,
-      job_years_of_experience,
+     patient_id,doctor_id,disease,timing,"false"
     ],
     (err, result) => {
       if (err) {

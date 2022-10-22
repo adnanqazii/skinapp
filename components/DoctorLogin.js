@@ -1,4 +1,4 @@
-import React, {useState, createRef,useEffect} from 'react';
+import React, {useState, createRef,useEffect, useContext} from 'react';
 import {
   StyleSheet,
   TextInput,
@@ -12,10 +12,10 @@ import {
 } from 'react-native';
 import Axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { DoctorContext } from '../contexts';
 
 const DoctorLogin = ({navigation,route}) => {
-  
+    const [doctor,setDoctor]=useContext(DoctorContext)
     const [userEmail, setUserEmail] = useState('');
     const [userPassword, setUserPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -37,13 +37,18 @@ const DoctorLogin = ({navigation,route}) => {
     try {
       const userEmail = await AsyncStorage.getItem('Email');
       const userPassword = await AsyncStorage.getItem('Password');
+      
+      if (!userEmail || !userPassword) {
+        const {userEmail,userPassword}=route.params.inputs;
+        if (!userEmail || !userPassword) {return;}
+      };
       const inputs={userEmail,userPassword}
       console.log({inputs})
-      Axios.post("http://localhost:3001/doctor_login", inputs)
+      Axios.post("http://192.168.0.105:3001/doctor_login", inputs)
       .then((response) => {
         if (response.status === 200) {
           console.log(response);
-          const p = response.data[0];
+          setDoctor(response.data)
           setLogin(true);
           navigation.navigate('Home');
           console.log("Success1");
@@ -52,7 +57,7 @@ const DoctorLogin = ({navigation,route}) => {
       .catch((err) => {
         console.log(err);
         console.log("Wrong username /Password");
-        setError("Incorrect email or password");
+        setErrortext("Incorrect email or password");
       });
     } 
     catch (e) {
@@ -75,11 +80,11 @@ const DoctorLogin = ({navigation,route}) => {
         return;
       }
       const inputs={userEmail,userPassword}
-      Axios.post("http://localhost:3001/doctor_login", inputs)
+      Axios.post("http://192.168.0.105:3001/doctor_login", inputs)
       .then((response) => {
         if (response.status === 200) {
           console.log(response);
-          const p = response.data[0];
+          setDoctor(response.data)
           setLogin(true);
           saveData();
           navigation.navigate('Home');
@@ -89,7 +94,7 @@ const DoctorLogin = ({navigation,route}) => {
       .catch((err) => {
         console.log(err);
         console.log("Wrong username /Password");
-        setError("Incorrect email or password");
+        setErrortext("Incorrect email or password");
       });
      
      

@@ -61,16 +61,7 @@ import Axios from 'axios'
       alert('Passwords Does not match!!');
       return;
     }
-    // Axios.post("http://localhost:3001/patient_signup", inputs)
-    //     .then((res) => {
-    //       console.log({res});
-    //       // setemp_id1(res.data.insertId);
-    //     })
-    //     .catch((err) => {
-    //       setError(err.Error);
-    //       console.log("This is error", err);
-    //     });
-    Axios.post("http://localhost:3001/patient_signup", values)
+    Axios.post("http://192.168.0.105:3001/patient_signup", values)
     .then((res) => {
       console.log({res});
       // setemp_id1(res.data.insertId);
