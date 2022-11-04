@@ -15,12 +15,18 @@ import {
   } from 'react-native';
   import { DoctorContext } from '../contexts';
   import { ListItem } from "@react-native-material/core";
-
+  import Constants from "expo-constants";
+  const { manifest } = Constants;
+  
+  const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
+    ? manifest.debuggerHost.split(`:`).shift().concat(`:3001`)
+    : `api.example.com`;
+  
 const Home = ({ navigation }) => {
   const [appointments,setAppointments]=useState([])
   const [doctor,setDoctor]=useContext(DoctorContext)
   const getAppointments=async()=>{
-    Axios.post("http://192.168.0.105:3001/doctor_appointments",{id:doctor.id})
+    Axios.post(`http://${api}/doctor_appointments`,{id:doctor.id})
     .then((response) => {
       if (response.status === 200) {
         console.log(response);

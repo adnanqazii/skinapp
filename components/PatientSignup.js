@@ -12,6 +12,12 @@ import {
   SafeAreaView,
 } from 'react-native';
 import Axios from 'axios'
+import Constants from "expo-constants";
+const { manifest } = Constants;
+
+const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
+  ? manifest.debuggerHost.split(`:`).shift().concat(`:3001`)
+  : `api.example.com`;
 
   const PatientSignup = ({navigation}) => {
   const [values, setValues] = useState({ userName: '', userEmail: '',userPassword:'',ConfirmUserPassword:'',userAge:'',userAddress:''});
@@ -61,7 +67,7 @@ import Axios from 'axios'
       alert('Passwords Does not match!!');
       return;
     }
-    Axios.post("http://192.168.0.105:3001/patient_signup", values)
+    Axios.post(`http://${api}/patient_signup`, values)
     .then((res) => {
       console.log({res});
       // setemp_id1(res.data.insertId);
@@ -73,7 +79,7 @@ import Axios from 'axios'
     setIsRegistraionSuccess(true)
   };
   if (isRegistraionSuccess) {
-    setIsRegistraionSuccess(false)
+    // setIsRegistraionSuccess(false)
     return (
       <SafeAreaView
         style={{
@@ -88,7 +94,7 @@ import Axios from 'axios'
         <TouchableOpacity
           style={styles.buttonStyle}
           activeOpacity={0.5}
-          onPress={navigation.navigate('PatientLogin',{values})}>
+          onPress={()=>{navigation.navigate('PatientLogin')}}>
           <Text style={styles.buttonTextStyle}>Login Now</Text>
         </TouchableOpacity>
       </SafeAreaView>

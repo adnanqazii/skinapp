@@ -13,6 +13,12 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'react-native';
+import Constants from "expo-constants";
+const { manifest } = Constants;
+
+const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
+  ? manifest.debuggerHost.split(`:`).shift().concat(`:3001`)
+  : `api.example.com`;
 
 const DoctorSignup = ({navigation}) =>{
 const [inputs,setInputs]=useState({userName:'',userEmail:'',userPhone:'',userCity:'',userSpeciality:'',userPMDCID:'',userPassword:'',ConfirmUserPassword:'',userPhone:''});
@@ -75,7 +81,7 @@ const [errortext, setErrortext] = useState('');
       alert('Passwords Does not match!!');
       return;
     }
-    Axios.post("http://192.168.0.105:3001/doctor_signup", inputs)
+    Axios.post(`http://${api}/doctor_signup`, inputs)
         .then((res) => {
           console.log({res});
           // setemp_id1(res.data.insertId);

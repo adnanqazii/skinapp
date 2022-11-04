@@ -102,6 +102,7 @@ app.post("/doctor_login", async (req, res) => {
 });
 
 app.post("/patient_login", async (req, res) => {
+  console.log(req.body)
   const email = req.body.userEmail;
   const password = String(req.body.userPassword);
   const hash = await bcrypt.hash(password, 10);
@@ -123,6 +124,7 @@ app.post("/patient_login", async (req, res) => {
           console.log(result);
           const {name,age,gender,id}=result[0]
           // res.send(result).status(200);
+          console.log('login')
           res.status(200).send({name,age,gender,id:id});
         } else {
           console.log("wrong username pass");

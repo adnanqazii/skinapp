@@ -13,13 +13,19 @@ import {
 } from 'react-native';
 import { useContext } from 'react';
 import Axios from 'axios'
-import { PatientContext } from '../contexts';
+import Constants from "expo-constants";
+const { manifest } = Constants;
+
+const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
+  ? manifest.debuggerHost.split(`:`).shift().concat(`:3001`)
+  : `api.example.com`;
+
 const Home = ({ navigation, route }) => {
     const [patient, setPatient] = useContext(PatientContext);
     const { doctor } = route.params
     console.log(patient)
     const getAppointment = () => {
-        Axios.post("http://192.168.0.105:3001/get_appointment", {
+        Axios.post(`http://${api}/get_appointment`, {
             doctor_id: doctor.id,
             patient_id: patient.id,
             disease: "disease",

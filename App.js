@@ -29,7 +29,7 @@ export default function App() {
                 <PatientContext.Provider value={PatientState}>
                 <DoctorContext.Provider value={DoctorState}>
 
-      <Stack.Navigator initialRouteName="DoctorLogin">
+      <Stack.Navigator initialRouteName="PatientLogin">
       <Stack.Screen name="Appointment" component={Appointment} />
       <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
       <Stack.Screen name="DoctorSignup" component={DoctorSignup} />

@@ -13,6 +13,12 @@ import {
 import Axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DoctorContext } from '../contexts';
+import Constants from "expo-constants";
+const { manifest } = Constants;
+
+const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
+  ? manifest.debuggerHost.split(`:`).shift().concat(`:3001`)
+  : `api.example.com`;
 
 const DoctorLogin = ({navigation,route}) => {
     const [doctor,setDoctor]=useContext(DoctorContext)
@@ -44,7 +50,7 @@ const DoctorLogin = ({navigation,route}) => {
       };
       const inputs={userEmail,userPassword}
       console.log({inputs})
-      Axios.post("http://192.168.0.105:3001/doctor_login", inputs)
+      Axios.post(`http://{api}/doctor_login`, inputs)
       .then((response) => {
         if (response.status === 200) {
           console.log(response);
@@ -80,7 +86,7 @@ const DoctorLogin = ({navigation,route}) => {
         return;
       }
       const inputs={userEmail,userPassword}
-      Axios.post("http://192.168.0.105:3001/doctor_login", inputs)
+      Axios.post(`http://${api}/doctor_login`, inputs)
       .then((response) => {
         if (response.status === 200) {
           console.log(response);

@@ -16,7 +16,8 @@ import Axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { PatientContext } from '../contexts';
 
- 
+import Constants from "expo-constants";
+
 const PatientLogin = ({navigation,route}) => {
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
@@ -41,7 +42,13 @@ const PatientLogin = ({navigation,route}) => {
       const userEmail = await AsyncStorage.getItem('Email');
       const userPassword = await AsyncStorage.getItem('Password');
       const inputs={userEmail,userPassword}
-      Axios.post("http://192.168.0.105:3001/patient_login", inputs)
+      const { manifest } = Constants;
+
+const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
+  ? manifest.debuggerHost.split(`:`).shift().concat(`:3001`)
+  : `api.example.com`;
+
+      Axios.post(`http://${api}/patient_login`, inputs)
       .then((response) => {
         if (response.status === 200) {
           console.log(response.data);
@@ -52,7 +59,7 @@ const PatientLogin = ({navigation,route}) => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(JSON.stringify(err));
         console.log("Wrong username /Password");
         setErrortext("Incorrect email or password");
       });
@@ -78,7 +85,12 @@ const PatientLogin = ({navigation,route}) => {
     }
     const inputs={userEmail,userPassword}
       console.log({inputs})
-      Axios.post("http://192.168.0.105:3001/patient_login", inputs)
+      const { manifest } = Constants;
+
+      const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
+        ? manifest.debuggerHost.split(`:`).shift().concat(`:3001`)
+        : `api.example.com`;
+      Axios.post(`http://${api}/patient_login`, inputs)
       .then((response) => {
         if (response.status === 200) {
           console.log(response);
@@ -88,9 +100,12 @@ const PatientLogin = ({navigation,route}) => {
           navigation.navigate('PatientHome');
           console.log("Success1");
         }
+        else {
+          console.log('vfbgf')
+        }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(JSON.stringify(err));
         console.log("Wrong username /Password");
         setErrortext("Incorrect email or password");
       });

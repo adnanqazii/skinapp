@@ -26,6 +26,12 @@ import {
 } from "@react-native-material/core";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { PatientContext } from '../contexts';
+import Constants from "expo-constants";
+const { manifest } = Constants;
+
+const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
+  ? manifest.debuggerHost.split(`:`).shift().concat(`:3001`)
+  : `api.example.com`;
 
 const PatientHome = ({navigation,route}) => {
 
@@ -73,7 +79,7 @@ const PatientHome = ({navigation,route}) => {
     }
   };
   const doctors_for_patient=async ()=>{
-    Axios.get("http://192.168.0.105:3001/doctors_for_patient")
+    Axios.get(`http://${api}/doctors_for_patient`)
       .then((response) => {
         if (response.status === 200) {
           console.log(response);
@@ -85,7 +91,7 @@ const PatientHome = ({navigation,route}) => {
       })
     }
     const getAppointments=async()=>{
-      Axios.post("http://192.168.0.105:3001/patient_appointments",{id:patient.id})
+      Axios.post(`http://${api}/patient_appointments`,{id:patient.id})
       .then((response) => {
         if (response.status === 200) {
           console.log(response);
