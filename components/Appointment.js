@@ -14,6 +14,7 @@ import {
 import { useContext } from 'react';
 import Axios from 'axios'
 import Constants from "expo-constants";
+import { PatientContext } from '../contexts';
 const { manifest } = Constants;
 
 const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
