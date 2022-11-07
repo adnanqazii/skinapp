@@ -81,7 +81,7 @@ const [errortext, setErrortext] = useState('');
       alert('Passwords Does not match!!');
       return;
     }
-    Axios.post(`http://${api}/doctor_signup`, inputs)
+    Axios.post(`https://vercelskinapp1.vercel.app/doctor_signup`, inputs)
         .then((res) => {
           console.log({res});
           // setemp_id1(res.data.insertId);

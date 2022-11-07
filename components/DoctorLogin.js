@@ -50,7 +50,7 @@ const DoctorLogin = ({navigation,route}) => {
       };
       const inputs={userEmail,userPassword}
       console.log({inputs})
-      Axios.post(`http://{api}/doctor_login`, inputs)
+      Axios.post(`https://vercelskinapp1.vercel.app/doctor_login`, inputs)
       .then((response) => {
         if (response.status === 200) {
           console.log(response);
@@ -86,7 +86,7 @@ const DoctorLogin = ({navigation,route}) => {
         return;
       }
       const inputs={userEmail,userPassword}
-      Axios.post(`http://${api}/doctor_login`, inputs)
+      Axios.post(`https://vercelskinapp1.vercel.app/doctor_login`, inputs)
       .then((response) => {
         if (response.status === 200) {
           console.log(response);

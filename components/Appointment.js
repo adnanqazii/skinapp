@@ -25,7 +25,7 @@ const Home = ({ navigation, route }) => {
     const { doctor } = route.params
     console.log(patient)
     const getAppointment = () => {
-        Axios.post(`http://${api}/get_appointment`, {
+        Axios.post(`https://vercelskinapp1.vercel.app/get_appointment`, {
             doctor_id: doctor.id,
             patient_id: patient.id,
             disease: "disease",

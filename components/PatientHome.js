@@ -79,7 +79,7 @@ const PatientHome = ({navigation,route}) => {
     }
   };
   const doctors_for_patient=async ()=>{
-    Axios.get(`http://${api}/doctors_for_patient`)
+    Axios.get(`https://vercelskinapp1.vercel.app/doctors_for_patient`)
       .then((response) => {
         if (response.status === 200) {
           console.log(response);
@@ -91,7 +91,7 @@ const PatientHome = ({navigation,route}) => {
       })
     }
     const getAppointments=async()=>{
-      Axios.post(`http://${api}/patient_appointments`,{id:patient.id})
+      Axios.post(`https://vercelskinapp1.vercel.app/patient_appointments`,{id:patient.id})
       .then((response) => {
         if (response.status === 200) {
           console.log(response);

@@ -26,7 +26,7 @@ const Home = ({ navigation }) => {
   const [appointments,setAppointments]=useState([])
   const [doctor,setDoctor]=useContext(DoctorContext)
   const getAppointments=async()=>{
-    Axios.post(`http://${api}/doctor_appointments`,{id:doctor.id})
+    Axios.post(`https://vercelskinapp1.vercel.app/doctor_appointments`,{id:doctor.id})
     .then((response) => {
       if (response.status === 200) {
         console.log(response);

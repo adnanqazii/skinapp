@@ -67,7 +67,7 @@ const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts
       alert('Passwords Does not match!!');
       return;
     }
-    Axios.post(`http://${api}/patient_signup`, values)
+    Axios.post(`https://vercelskinapp1.vercel.app/patient_signup`, values)
     .then((res) => {
       console.log({res});
       // setemp_id1(res.data.insertId);

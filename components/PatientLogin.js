@@ -48,7 +48,7 @@ const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts
   ? manifest.debuggerHost.split(`:`).shift().concat(`:3001`)
   : `api.example.com`;
 
-      Axios.post(`http://${api}/patient_login`, inputs)
+      Axios.post(`https://vercelskinapp1.vercel.app/patient_login`, inputs)
       .then((response) => {
         if (response.status === 200) {
           console.log(response.data);
@@ -90,7 +90,7 @@ const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts
       const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
         ? manifest.debuggerHost.split(`:`).shift().concat(`:3001`)
         : `api.example.com`;
-      Axios.post(`http://${api}/patient_login`, inputs)
+      Axios.post(`https://vercelskinapp1.vercel.app/patient_login`, inputs)
       .then((response) => {
         if (response.status === 200) {
           console.log(response);
