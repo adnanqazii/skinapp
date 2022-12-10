@@ -73,21 +73,22 @@ const PatientSignup = ({ navigation }) => {
       alert('Passwords Does not match!!');
       return;
     }
-    Axios.post(`http://${api}/patient_signup`, values)
-      .then((res) => {
-        if (!res.data.message) {
-          setIsRegistraionSuccess(true)
-        }
-        else {
-          alert(res.data.message)
-        }
-        console.log({ res });
-        // setemp_id1(res.data.insertId);
-      })
-      .catch((err) => {
-        setErrortext(err.Error);
-        console.log("This is error", JSON.stringify(err));
-      });
+    // Axios.post(`http://${api}/patient_signup`, values)
+    //   .then((res) => {
+    //     if (!res.data.message) {
+    //       setIsRegistraionSuccess(true)
+    //     }
+    //     else {
+    //       alert(res.data.message)
+    //     }
+    //     console.log({ res });
+    //     // setemp_id1(res.data.insertId);
+    //   })
+    //   .catch((err) => {
+    //     setErrortext(err.Error);
+    //     console.log("This is error", JSON.stringify(err));
+    //   });
+      setIsRegistraionSuccess(true)
 
   };
   if (isRegistraionSuccess) {

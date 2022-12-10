@@ -42,6 +42,7 @@ const api2 = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpt
 
 function HomeScreen({ navigation }) {
   const [done, setDone] = useState(false)
+  
   const takePicture = async () => {
     if (camera) {
       const result = await camera.takePictureAsync(null)
@@ -59,20 +60,25 @@ function HomeScreen({ navigation }) {
         });
         console.log({ data })
 
-        Axios({
-          method: "post",
-          url: `http://${api2}/upload`,
-          data: data,
-          headers: { "Content-Type": "multipart/form-data" },
-        }).then((response) => {
-          if (response.status === 200) {
-            setClassified(response.data);
-          }
-        })
-          .catch((err) => {
-            console.log({ err });
-          })
-
+        // Axios({
+        //   method: "post",
+        //   url: `http://${api2}/upload`,
+        //   data: data,
+        //   headers: { "Content-Type": "multipart/form-data" },
+        // }).then((response) => {
+        //   if (response.status === 200) {
+        //     setClassified(response.data);
+        //     console.log(response.data)
+        //   }
+        // })
+        //   .catch((err) => {
+        //     console.log({ err });
+        //   })
+          setClassified( {
+            "classname": "Eczema",
+            "prob": "0.534746"
+        });
+         
       };
     }
   }
@@ -80,7 +86,7 @@ function HomeScreen({ navigation }) {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [classified, setClassified] = useContext(DiseaseContext);
   const OpenCamera = async () => {
-    const cameraStatus = await Camera.requestPermissionsAsync();
+    const cameraStatus = await Camera.requestCameraPermissionsAsync();
     setHasCameraPermission(cameraStatus.status === 'granted');
   };
   useEffect(() => { OpenCamera() }, [])
@@ -152,20 +158,23 @@ function GalleryScreen({ navigation }) {
       });
       console.log({ data })
 
-      Axios({
-        method: "post",
-        url: `http://${api2}/upload`,
-        data: data,
-        headers: { "Content-Type": "multipart/form-data" },
-      }).then((response) => {
-        if (response.status === 200) {
-          setClassified(response.data);
-        }
-      })
-        .catch((err) => {
-          console.log({ err });
-        })
-
+      // Axios({
+      //   method: "post",
+      //   url: `http://${api2}/upload`,
+      //   data: data,
+      //   headers: { "Content-Type": "multipart/form-data" },
+      // }).then((response) => {
+      //   if (response.status === 200) {
+      //     setClassified(response.data);
+      //   }
+      // })
+      //   .catch((err) => {
+      //     console.log({ err });
+      //   })
+        setClassified( {
+          "classname": "Eczema",
+          "prob": "0.534746"
+      });
     };
   }
   useEffect(() => { pickImage() }, [])
@@ -200,34 +209,393 @@ function DoctorsAppointments({ navigation }) {
 
 
   const doctors_for_patient = async () => {
-    Axios.get(`http://${api}/doctors_for_patient`)
-      .then((response) => {
-        if (response.status === 200) {
-          console.log(response);
-          setDoctors(response.data)
+    // Axios.get(`http://${api}/doctors_for_patient`)
+    //   .then((response) => {
+    //     if (response.status === 200) {
+    //       console.log(response.data);
+    //       setDoctors(response.data)
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   })
+      setDoctors([
+        {
+            "id": 9,
+            "name": "Maheerah Qadeer Khan",
+            "speciality": "63626171",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "maheerah@gmail.com",
+            "PMDCID": "627272722"
+        },
+        {
+            "id": 10,
+            "name": "Mubeen Siddiqui ",
+            "speciality": "3215",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "mubeen@gmail.com",
+            "PMDCID": "52626"
+        },
+        {
+            "id": 11,
+            "name": "Muaz Abbasi",
+            "speciality": "Derm",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "muaz@gmail.com",
+            "PMDCID": "33332"
+        },
+        {
+            "id": 12,
+            "name": "A",
+            "speciality": "A",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "A",
+            "PMDCID": "A"
+        },
+        {
+            "id": 13,
+            "name": "Q",
+            "speciality": "Q",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "Q",
+            "PMDCID": "Q"
+        },
+        {
+            "id": 14,
+            "name": "Q",
+            "speciality": "Q",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "Q",
+            "PMDCID": "Q"
+        },
+        {
+            "id": 15,
+            "name": "Q",
+            "speciality": "Q",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "Q",
+            "PMDCID": "Q"
+        },
+        {
+            "id": 16,
+            "name": "Q",
+            "speciality": "Q",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "Q",
+            "PMDCID": "Q"
+        },
+        {
+            "id": 17,
+            "name": "Q",
+            "speciality": "Q",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "Q",
+            "PMDCID": "Q"
+        },
+        {
+            "id": 18,
+            "name": "Q",
+            "speciality": "Q",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "Q",
+            "PMDCID": "Q"
+        },
+        {
+            "id": 19,
+            "name": "Q",
+            "speciality": "Q",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "Q",
+            "PMDCID": "Q"
+        },
+        {
+            "id": 20,
+            "name": "Q",
+            "speciality": "Q",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "Q",
+            "PMDCID": "Q"
+        },
+        {
+            "id": 21,
+            "name": "Q",
+            "speciality": "Q",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "Q",
+            "PMDCID": "Q"
+        },
+        {
+            "id": 22,
+            "name": "Q",
+            "speciality": "Q",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "Q",
+            "PMDCID": "Q"
+        },
+        {
+            "id": 23,
+            "name": "Q",
+            "speciality": "Q",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "Q",
+            "PMDCID": "Q"
+        },
+        {
+            "id": 24,
+            "name": "A",
+            "speciality": "A",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "adnanqazi123@gmail.c",
+            "PMDCID": "A"
+        },
+        {
+            "id": 25,
+            "name": "A",
+            "speciality": "A",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "adnanqazi123@gmail.c",
+            "PMDCID": "A"
+        },
+        {
+            "id": 26,
+            "name": "A",
+            "speciality": "A",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "adnanqazi123@gmail.c",
+            "PMDCID": "A"
+        },
+        {
+            "id": 27,
+            "name": "A",
+            "speciality": "A",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "adnanqazi123@gmail.c",
+            "PMDCID": "A"
+        },
+        {
+            "id": 28,
+            "name": "A",
+            "speciality": "A",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "adnanqazi123@gmail.c",
+            "PMDCID": "A"
+        },
+        {
+            "id": 29,
+            "name": "A",
+            "speciality": "A",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "adnanqazi123@gmail.com",
+            "PMDCID": "A"
+        },
+        {
+            "id": 30,
+            "name": "A",
+            "speciality": "A",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "adnanqazi123@gmail.c",
+            "PMDCID": "A"
+        },
+        {
+            "id": 31,
+            "name": "A",
+            "speciality": "A",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "adnanqazi123@gmail.c",
+            "PMDCID": "A"
+        },
+        {
+            "id": 32,
+            "name": "A",
+            "speciality": "A",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "adnanqazi123@gmail.c",
+            "PMDCID": "A"
+        },
+        {
+            "id": 33,
+            "name": "A",
+            "speciality": "A",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "adnanqazi123@gmail.c",
+            "PMDCID": "A"
+        },
+        {
+            "id": 34,
+            "name": "A",
+            "speciality": "A",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "adnanqazi123@gmail.c",
+            "PMDCID": "A"
+        },
+        {
+            "id": 35,
+            "name": "A",
+            "speciality": "A",
+            "experience": 0,
+            "timing": "timing",
+            "charges": "charges",
+            "qualification": "qualification",
+            "email": "adnanqazi123@gmail.com",
+            "PMDCID": "A"
         }
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+    ])
+
   }
   const getAppointments = async () => {
-    Axios.post(`http://${api}/patient_appointments`, { id: patient.id })
-      .then((response) => {
-        if (response.status === 200) {
-          console.log(response);
-          setAppointments(response.data)
+    // Axios.post(`http://${api}/patient_appointments`, { id: patient.id })
+    //   .then((response) => {
+    //     if (response.status === 200) {
+    //       console.log(response.data);
+    //       setAppointments(response.data)
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   })
+      
+      setAppointments([
+        {
+            "id": 13,
+            "patient_id": 6,
+            "doctor_id": 11,
+            "timing": "2022-12-10T17:32:07.",
+            "taken_place": 0,
+            "disease": "",
+            "doctor_name": "Muaz Abbasi",
+            "meeting_type": "Video Conference",
+            "patient_name": "A"
+        },
+        {
+            "id": 14,
+            "patient_id": 6,
+            "doctor_id": 11,
+            "timing": "2022-12-10T17:32:07.",
+            "taken_place": 0,
+            "disease": "",
+            "doctor_name": "Muaz Abbasi",
+            "meeting_type": "Video Conference",
+            "patient_name": "A"
+        },
+        {
+            "id": 15,
+            "patient_id": 6,
+            "doctor_id": 11,
+            "timing": "2022-12-10T17:32:07.",
+            "taken_place": 0,
+            "disease": "",
+            "doctor_name": "Muaz Abbasi",
+            "meeting_type": "Video Conference",
+            "patient_name": "A"
+        },
+        {
+            "id": 16,
+            "patient_id": 6,
+            "doctor_id": 11,
+            "timing": "2022-12-10T17:32:07.",
+            "taken_place": 0,
+            "disease": "",
+            "doctor_name": "Muaz Abbasi",
+            "meeting_type": "Video Conference",
+            "patient_name": "A"
+        },
+        {
+            "id": 17,
+            "patient_id": 6,
+            "doctor_id": 11,
+            "timing": "2022-12-10T17:33:06.",
+            "taken_place": 0,
+            "disease": "",
+            "doctor_name": "Muaz Abbasi",
+            "meeting_type": "",
+            "patient_name": "A"
         }
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+    ])
   }
   useEffect(() => {
     doctors_for_patient()
     getAppointments()
   }, [])
   return (
+    <ScrollView>
     <View style={{ padding: 4 }}>
       <Text>Doctors;</Text>
       {doctors.map((doctor, i) => (
@@ -250,10 +618,12 @@ function DoctorsAppointments({ navigation }) {
       {appointments.map((app, i) => (
         <ListItem
           key={i}
-          title={app.id}
+          title={app.doctor_name}
+          secondaryText={"Meeting type: " + app.meeting_type + " - Timing: " + app.timing + " - Disease: " + app.disease}
         />
       ))}
     </View>
+    </ScrollView>
   )
 }
 
@@ -296,7 +666,7 @@ const PatientHome = ({ navigation, route }) => {
     // <Button title="Take Picture" onPress={() => takePicture()} />
     // <Button title="Book an Appointment" onPress={() => setShowDoctors(true)} />
     <View style={{ flex: 1 }}>
-      <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Navigator initialRouteName="Doctors and Appointments">
         <Drawer.Screen name="Scan Skin Area" component={HomeScreen} options={{ unmountOnBlur: true }} />
         <Drawer.Screen name="Scan Image from Gallery" component={GalleryScreen} options={{ unmountOnBlur: true }} />
         <Drawer.Screen name="Doctors and Appointments" component={DoctorsAppointments} options={{ unmountOnBlur: true }} />

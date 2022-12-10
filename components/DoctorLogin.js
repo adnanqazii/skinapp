@@ -92,9 +92,9 @@ const DoctorLogin = ({navigation,route}) => {
       alert('Failed to fetch the input from storage');
     }
   };
-  useEffect(() => {
-    readData();
-  }, []);
+  // useEffect(() => {
+  //   readData();
+  // }, []);
     
    
     const handleSubmitPress = () => {
@@ -108,41 +108,61 @@ const DoctorLogin = ({navigation,route}) => {
         return;
       }
       const inputs={userEmail,userPassword}
-      Axios.post(`http://${api}/doctorIn_login`, inputs)
-      .then((response) => {
-        if (response.status === 200) {
-          console.log(response);
-          alert("Account Under Verification..")
-          setIsInDoctor(true)
+      // Axios.post(`http://${api}/doctorIn_login`, inputs)
+      // .then((response) => {
+      //   if (response.status === 200) {
+      //     console.log(response);
+      //     alert("Account Under Verification..")
+      //     setIsInDoctor(true)
           
-        }
+      //   }
         
-      })
-      .catch((err) => {
-        console.log(err);
-        console.log("11Wrong username /Password");
-        // setErrortext("11Incorrect email or password");
-      });
+      // })
+      // .catch((err) => {
+      //   console.log(err);
+      //   console.log("11Wrong username /Password");
+      //   // setErrortext("11Incorrect email or password");
+      // });
 
       if(!isInDoctor){
-        Axios.post(`http://${api}/doctor_login`, inputs)
-      .then((response) => {
-        if (response.status === 200) {
-          console.log(response);
-          setDoctor(response.data)
-          setLogin(true);
-          saveData();
-          navigation.navigate('Home',response.data);
-          console.log("Success");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        console.log("Wrong username /Password");
-        setErrortext("Incorrect email or password");
-      });
+      //   Axios.post(`http://${api}/doctor_login`, inputs)
+      // .then((response) => {
+      //   if (response.status === 200) {
+      //     console.log(response);
+      //     setDoctor(response.data)
+      //     setLogin(true);
+      //     saveData();
+      //     navigation.navigate('Home',response.data);
+      //     console.log("Success");
+      //   }
+      // })
+      // .catch((err) => {
+      //   console.log(err);
+      //   console.log("Wrong username /Password");
+      //   setErrortext("Incorrect email or password");
+      // });
       }
-      
+      alert("Account Under Verification..")
+      setDoctor({
+        "id": 29,
+        "name": "A",
+        "qualification": "qualification",
+        "experience": 0,
+        "timing": "timing",
+        "charges": "charges",
+        "speciality": "A"
+    })
+    setLogin(true);
+    saveData();
+    navigation.navigate('Home',{
+      "id": 29,
+      "name": "A",
+      "qualification": "qualification",
+      "experience": 0,
+      "timing": "timing",
+      "charges": "charges",
+      "speciality": "A"
+  });
      
      
     };

@@ -70,25 +70,25 @@ const setAppointmentDB = () => {
       dis=disease.prob
     }
     
-    Axios.post(`http://${api}/set_appointment`, {
-        doctor_id: doctor.id,
-        patient_id: patient.id,
-        disease:dis,
-        timing: "timing",
-        date: appointment.date,
-        doctor_name: appointment.doctor,
-        meeting_type:appointment.meetings,
-        patient_name:patient.name
-    })
-        .then((response) => {
-            if (response.status === 200) {
-                console.log(response);
+    // Axios.post(`http://${api}/set_appointment`, {
+    //     doctor_id: doctor.id,
+    //     patient_id: patient.id,
+    //     disease:dis,
+    //     timing: "timing",
+    //     date: appointment.date,
+    //     doctor_name: appointment.doctor,
+    //     meeting_type:appointment.meetings,
+    //     patient_name:patient.name
+    // })
+    //     .then((response) => {
+    //         if (response.status === 200) {
+    //             console.log(response);
                 
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+    //         }
+    //     })
+    //     .catch((err) => {
+    //         console.log(err);
+    //     })
 }
 
   return (

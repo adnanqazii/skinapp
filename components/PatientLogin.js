@@ -68,9 +68,9 @@ const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts
       alert('Failed to fetch the input from storage');
     }
   };
-  useEffect(() => {
-    readData();
-  }, []);
+  // useEffect(() => {
+  //   readData();
+  // }, []);
   
  
   const handleSubmitPress = () => {
@@ -90,26 +90,34 @@ const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts
       const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
         ? manifest.debuggerHost.split(`:`).shift().concat(`:3001`)
         : `api.example.com`;
-      Axios.post(`http://${api}/patient_login`, inputs)
-      .then((response) => {
-        if (response.status === 200) {
-          console.log(response);
-          const p = response.data[0];
-          setPatient(response.data)
+      // Axios.post(`http://${api}/patient_login`, inputs)
+      // .then((response) => {
+      //   if (response.status === 200) {
+      //     console.log(response.data);
+      //     const p = response.data[0];
+      //     setPatient(response.data)
+      //     setLogin(true);
+      //     navigation.navigate('PatientHome');
+      //     console.log("Success1");
+      //   }
+      //   else {
+      //     console.log('vfbgf')
+      //   }
+      // })
+      // .catch((err) => {
+      //   console.log(JSON.stringify(err));
+      //   console.log("Wrong username /Password");
+      //   setErrortext("Incorrect email or password");
+      // });
+      setPatient(  {
+        "name": "A",
+        "age": 0,
+        "gender": "gender",
+        "id": 6
+    })
           setLogin(true);
           navigation.navigate('PatientHome');
-          console.log("Success1");
-        }
-        else {
-          console.log('vfbgf')
-        }
-      })
-      .catch((err) => {
-        console.log(JSON.stringify(err));
-        console.log("Wrong username /Password");
-        setErrortext("Incorrect email or password");
-      });
-   
+    
   };
  
   return (
