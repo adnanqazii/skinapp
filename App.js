@@ -10,6 +10,7 @@ import Home from './components/Home';
 import AdminLogin from './components/AdminLogin';
 import AdminView from './components/AdminView';
 import WelcomeScreen from './components/WelcomeScreen';
+import History from './components/History'
 import { NavigationContainer } from '@react-navigation/native';
 import Appointment from './components/Appointment'
 import AppointmentBooking from './components/AppointmentBooking';
@@ -18,6 +19,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useState } from 'react';
 import { DiseaseContext, PatientContext, DoctorContext } from './contexts';
 import Drawer from './components/Drawerr'
+import Call from './components/Call'
 //import AsyncStorage from '@react-native-community/async-storage'
 export default function App() {
   console.log("App is working");
@@ -32,8 +34,10 @@ export default function App() {
       <PatientContext.Provider value={PatientState}>
         <DoctorContext.Provider value={DoctorState}>
           <DiseaseContext.Provider value={DiseaseState}>
-            <Stack.Navigator initialRouteName="Intro">
+            <Stack.Navigator initialRouteName="Home">
             {/* <Stack.Screen name="Drawer" component={Drawer} /> */}
+            <Stack.Screen name="History" component={History} />
+            <Stack.Screen name="Call" component={Call} />
 
               <Stack.Screen name="Appointment" component={Appointment} />
               <Stack.Screen name="Intro" component={Intro} />

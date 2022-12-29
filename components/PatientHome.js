@@ -220,17 +220,7 @@ function DoctorsAppointments({ navigation }) {
     //     console.log(err);
     //   })
       setDoctors([
-        {
-            "id": 9,
-            "name": "Maheerah Qadeer Khan",
-            "speciality": "63626171",
-            "experience": 0,
-            "timing": "timing",
-            "charges": "charges",
-            "qualification": "qualification",
-            "email": "maheerah@gmail.com",
-            "PMDCID": "627272722"
-        },
+       
         {
             "id": 10,
             "name": "Mubeen Siddiqui ",
