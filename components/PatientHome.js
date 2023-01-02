@@ -285,6 +285,76 @@ export function DoctorsAppointments({ navigation }) {
       },
     ])
   }
+  const getAppointments = async () => {
+    // Axios.post(`http://${api}/patient_appointments`, { id: patient.id })
+    //   .then((response) => {
+    //     if (response.status === 200) {
+    //       console.log(response.data);
+    //       setAppointments(response.data)
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   })
+      
+      setAppointments([
+        {
+            "id": 13,
+            "patient_id": 6,
+            "doctor_id": 11,
+            "timing": "2022-12-10T17:32:07.",
+            "taken_place": 0,
+            "disease": "",
+            "doctor_name": "Muaz Abbasi",
+            "meeting_type": "Video Conference",
+            "patient_name": "A"
+        },
+        {
+            "id": 14,
+            "patient_id": 6,
+            "doctor_id": 11,
+            "timing": "2022-12-10T17:32:07.",
+            "taken_place": 0,
+            "disease": "",
+            "doctor_name": "Muaz Abbasi",
+            "meeting_type": "Video Conference",
+            "patient_name": "A"
+        },
+        {
+            "id": 15,
+            "patient_id": 6,
+            "doctor_id": 11,
+            "timing": "2022-12-10T17:32:07.",
+            "taken_place": 0,
+            "disease": "",
+            "doctor_name": "Muaz Abbasi",
+            "meeting_type": "Video Conference",
+            "patient_name": "A"
+        },
+        {
+            "id": 16,
+            "patient_id": 6,
+            "doctor_id": 11,
+            "timing": "2022-12-10T17:32:07.",
+            "taken_place": 0,
+            "disease": "",
+            "doctor_name": "Muaz Abbasi",
+            "meeting_type": "Video Conference",
+            "patient_name": "A"
+        },
+        {
+            "id": 17,
+            "patient_id": 6,
+            "doctor_id": 11,
+            "timing": "2022-12-10T17:33:06.",
+            "taken_place": 0,
+            "disease": "",
+            "doctor_name": "Muaz Abbasi",
+            "meeting_type": "",
+            "patient_name": "A"
+        }
+    ])
+  }
   useEffect(() => {
     doctors_for_patient()
     getAppointments()
