@@ -22,6 +22,9 @@ import { useState } from 'react';
 import { DiseaseContext, PatientContext, DoctorContext, AppointmentsContext } from './contexts';
 import Drawer from './components/Drawerr'
 import Call from './components/Call'
+import DoctorsAppointments from './components/PatientHome'
+
+
 //import AsyncStorage from '@react-native-community/async-storage'
 export default function App() {
   console.log("App is working");
@@ -43,7 +46,8 @@ export default function App() {
             {/* <Stack.Screen name="Drawer" component={Drawer} /> */}
             <Stack.Screen name="History" component={History} />
             <Stack.Screen name="Call" component={Call} />
-            
+            <Stack.Screen name="DoctorsAppointments" component={DoctorsAppointments} />
+
 
               <Stack.Screen name="Appointment" component={Appointment} />
               <Stack.Screen name="Intro" component={Intro} />

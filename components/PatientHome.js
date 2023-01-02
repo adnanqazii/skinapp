@@ -126,15 +126,17 @@ function HomeScreen({ navigation }) {
       {image && !done && (<>
         <Text style={{ fontSize: 20 }}>Your Picture</Text>
         <Image source={{ uri: image }} style={{ marginTop: 100, width: 150, height: 150, }} />
-        <Button title="Make appointment" onPress={() => setDone(true)} />
+        <Button title="Make appointment" onPress={() => {
+          
+          setDone(true)
+          navigation.navigate('DoctorsAppointments')          }} />
         {classified.prob >= 0.5 ? <Text>Found {classified.classname} with {classified.prob} probability</Text> : classified ? <Text>Could not
           classify among any disease due to poor probability: {classified.prob}</Text> : null}
-
+          <Remedies disease='Eczema' />
       </>)}
     </View>
-  {!done &&  <Remedies disease='Eczema' />} 
+  {/* {!done &&  <Remedies disease='Eczema' />}  */}
 
-    {done && <DoctorsAppointments />}
       
 </>
   );
@@ -193,7 +195,9 @@ function GalleryScreen({ navigation }) {
 
         <Text style={{ fontSize: 20 }}>Your Picture</Text>
         <Image source={{ uri: image }} style={{ width: 300, height: 300, }} />
-        <Button title="Make appointment" onPress={() => {setDone(true)
+        <Button title="Make appointment" onPress={() => {
+          setDone(true)
+        navigation.navigate('DoctorsAppointments')
       }
         } />
         {classified.prob >= 0.5 ? <Text>Found {classified.classname} with {classified.prob} probability</Text> : <Text>Could not
@@ -204,7 +208,7 @@ function GalleryScreen({ navigation }) {
       )
       }
           
-{done && <DoctorsAppointments />}
+
      
     </>
   );
