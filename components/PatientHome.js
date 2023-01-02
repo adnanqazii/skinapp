@@ -20,7 +20,7 @@ import { AutoFocus, Camera, CameraType } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 import { ListItem, Avatar } from "@react-native-material/core";
 import Axios from 'axios'
-
+import Remedies from './Remedies'
 import {
   Backdrop,
   AppBar,
@@ -28,7 +28,7 @@ import {
   BackdropSubheader
 } from "@react-native-material/core";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import { DiseaseContext, PatientContext } from '../contexts';
+import { DiseaseContext, PatientContext,AppointmentsContext } from '../contexts';
 import Constants from "expo-constants";
 const { manifest } = Constants;
 
@@ -97,7 +97,8 @@ function HomeScreen({ navigation }) {
     return <Text>No access to camera</Text>;
   }
   return (
-    <View style={done ? styles.heightAuto : styles.fill}>
+   <>
+   <View style={done ? styles.heightAuto : styles.fill}>
 
       {
         !image &&
@@ -125,12 +126,17 @@ function HomeScreen({ navigation }) {
       {image && !done && (<>
         <Text style={{ fontSize: 20 }}>Your Picture</Text>
         <Image source={{ uri: image }} style={{ marginTop: 100, width: 150, height: 150, }} />
-        <Button title="Done" onPress={() => setDone(true)} />
+        <Button title="Make appointment" onPress={() => setDone(true)} />
         {classified.prob >= 0.5 ? <Text>Found {classified.classname} with {classified.prob} probability</Text> : classified ? <Text>Could not
           classify among any disease due to poor probability: {classified.prob}</Text> : null}
 
       </>)}
     </View>
+  {!done &&  <Remedies disease='Eczema' />} 
+
+    {done && <DoctorsAppointments />}
+      
+</>
   );
 }
 function GalleryScreen({ navigation }) {
@@ -183,15 +189,23 @@ function GalleryScreen({ navigation }) {
 
   return (
     <>
-      {image && !done && (<View style={styles.container}>
+      {image && !done && (<><View style={styles.container}>
 
         <Text style={{ fontSize: 20 }}>Your Picture</Text>
         <Image source={{ uri: image }} style={{ width: 300, height: 300, }} />
-        <Button title="Done" onPress={() => setDone(true)} />
+        <Button title="Make appointment" onPress={() => {setDone(true)
+      }
+        } />
         {classified.prob >= 0.5 ? <Text>Found {classified.classname} with {classified.prob} probability</Text> : <Text>Could not
           classify among any disease due to poor probability: {classified.prob}</Text>}
-
-      </View>)}
+      </View>
+      <Remedies disease='Eczema' />
+      </>
+      )
+      }
+          
+{done && <DoctorsAppointments />}
+     
     </>
   );
 }
@@ -202,7 +216,7 @@ function DoctorsAppointments({ navigation }) {
   console.log("PRINTING PATIENT", patient);
 
 
-  const [appointments, setAppointments] = useState([])
+  const [appointments, setAppointments] = useContext(AppointmentsContext)
   const [doctors, setDoctors] = useState([])
   const [showDoctors, setShowDoctors] = useState(false)
 
@@ -583,6 +597,7 @@ function DoctorsAppointments({ navigation }) {
   useEffect(() => {
     doctors_for_patient()
     getAppointments()
+    console.log({appointments})
   }, [])
   return (
     <ScrollView>

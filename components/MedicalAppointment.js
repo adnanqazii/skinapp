@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Axios from "axios";
-import { DiseaseContext, PatientContext } from '../contexts';
+import { DiseaseContext, PatientContext,AppointmentsContext } from '../contexts';
 import { Card, Button, Icon } from "react-native-elements";
 import RadioButtonRN from "radio-buttons-react-native";
 import Constants from "expo-constants";
@@ -25,6 +25,8 @@ const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts
 const MedicalAppointment = ({ navigation, doctor}) => {
   const [patient,setPatient]=useContext(PatientContext)
   const [disease,setDisease]=useContext(DiseaseContext)
+  const [appointments,setAppointments]=useContext(AppointmentsContext)
+
   console.log("Patient Info...",patient);
   const [appointment, setAppointment] = useState({
     doctor: `${doctor.name}`,
@@ -69,7 +71,31 @@ const setAppointmentDB = () => {
     if (prob>=0.5) {
       dis=disease.prob
     }
-    
+    console.log({doctor})
+    console.log({disease})
+    const dataCopy = [...appointments,{
+      "id": appointments.length,
+      "patient_id": patient.id,
+      "doctor_id": doctor.id,
+      "timing": appointment.date,
+      "taken_place": 0,
+      "disease": disease.classname || "",
+      "doctor_name": appointment.doctor,
+      "meeting_type": appointment.meetings,
+      "patient_name": patient.name
+  }];
+  console.log({
+    "id": appointments.length,
+    "patient_id": patient.id,
+    "doctor_id": doctor.id,
+    "timing": appointment.date,
+    "taken_place": 0,
+    "disease": disease.classname || "",
+    "doctor_name": appointment.doctor,
+    "meeting_type": appointment.meetings,
+    "patient_name": patient.name
+})
+    setAppointments(dataCopy);
     // Axios.post(`http://${api}/set_appointment`, {
     //     doctor_id: doctor.id,
     //     patient_id: patient.id,
@@ -150,20 +176,15 @@ const setAppointmentDB = () => {
                   setVisible(false);
                 }}
               >
-                {/* <Image
-                  source={require("C:\Users\user\Deskto/Mubeen_Siddiqui.jpeg")}
-                  style={{ height: 30, width: 30 }}
-                /> */}
+                 <View style={{ alignItems: "center" }}>
+                 <Text>OK</Text>
+           </View>
+        
               </TouchableOpacity>
             </View>
           </View>
 
-          <View style={{ alignItems: "center" }}>
-            {/* <Image
-              source={require("C:/Users/user/Desktop/Mubeen_Siddiqui.jpeg")}
-              style={{ height: 150, width: 150, marginVertical: 10 }}
-            /> */}
-          </View>
+         
 
           <Text
             style={{ marginVertical: 30, fontSize: 20, textAlign: "center" }}

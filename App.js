@@ -10,6 +10,8 @@ import Home from './components/Home';
 import AdminLogin from './components/AdminLogin';
 import AdminView from './components/AdminView';
 import WelcomeScreen from './components/WelcomeScreen';
+import Remedies from './components/Remedies';
+
 import History from './components/History'
 import { NavigationContainer } from '@react-navigation/native';
 import Appointment from './components/Appointment'
@@ -17,7 +19,7 @@ import AppointmentBooking from './components/AppointmentBooking';
 import Intro from './components/Intro';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useState } from 'react';
-import { DiseaseContext, PatientContext, DoctorContext } from './contexts';
+import { DiseaseContext, PatientContext, DoctorContext, AppointmentsContext } from './contexts';
 import Drawer from './components/Drawerr'
 import Call from './components/Call'
 //import AsyncStorage from '@react-native-community/async-storage'
@@ -27,6 +29,7 @@ export default function App() {
   const PatientState = useState({})
   const DoctorState = useState({})
   const DiseaseState = useState({})
+  const AppointmentsState= useState([])
   return (
 
 
@@ -34,10 +37,13 @@ export default function App() {
       <PatientContext.Provider value={PatientState}>
         <DoctorContext.Provider value={DoctorState}>
           <DiseaseContext.Provider value={DiseaseState}>
-            <Stack.Navigator initialRouteName="Home">
+          <AppointmentsContext.Provider value={AppointmentsState}>
+
+            <Stack.Navigator initialRouteName="Intro">
             {/* <Stack.Screen name="Drawer" component={Drawer} /> */}
             <Stack.Screen name="History" component={History} />
             <Stack.Screen name="Call" component={Call} />
+            
 
               <Stack.Screen name="Appointment" component={Appointment} />
               <Stack.Screen name="Intro" component={Intro} />
@@ -52,6 +58,7 @@ export default function App() {
               <Stack.Screen name="AdminView" component={AdminView} />
               <Stack.Screen name="AppointmentBooking" component={AppointmentBooking} />
             </Stack.Navigator>
+        </AppointmentsContext.Provider>
           </DiseaseContext.Provider>
         </DoctorContext.Provider>
       </PatientContext.Provider>
