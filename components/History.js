@@ -25,6 +25,9 @@ const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts
 
 const History = ({ navigation, route }) => {
     const [appointments, setAppointments] = useState([])
+    const [history,setHistory]=useState({6:"Cancer,eczema",14:"Eczema",15:"Herpes",
+    16:"",17:""
+})
     const [doctor, setDoctor] = useContext(DoctorContext)
     console.log("RoutePArams:", route.params)
     const getAppointments = async () => {
@@ -48,7 +51,8 @@ const History = ({ navigation, route }) => {
                 "disease": "",
                 "doctor_name": "Muaz Abbasi",
                 "meeting_type": "Video Conference",
-                "patient_name": "A"
+                "patient_name": "A",
+         
             },
             {
                 "id": 14,
@@ -59,7 +63,7 @@ const History = ({ navigation, route }) => {
                 "disease": "",
                 "doctor_name": "Muaz Abbasi",
                 "meeting_type": "Video Conference",
-                "patient_name": "A"
+                "patient_name": "A",
             },
             {
                 "id": 15,
@@ -119,6 +123,9 @@ const History = ({ navigation, route }) => {
             title={'Meet patient'}
             onPress={() => navigation.navigate(`Call`)}>
           </Button>
+          <Text style={styles.header}>Patient History</Text>
+            <Text>{history[route.params.item.patient_id]}</Text>
+          <Text style={styles.header}>Appointment History</Text>
             {
                 appointments.length ? <FlatList
                     data={appointments}
@@ -130,7 +137,9 @@ const History = ({ navigation, route }) => {
                                     <View style={styles.headerContainer}>
                                         <Text style={styles.header}>Doctor: {item.doctor_name}</Text>
                                         <Text>Meeting type: {item.meeting_type}</Text>
-                                        <Text>Patient Name: {item.patient_name}</Text>
+                                        <Text onPress={()=>{
+
+                                        }}>Patient Name: {item.patient_name}</Text>
                                         <Text>Disease : {item.disease}</Text>
                                         <Text>Meeting time: {item.timing}</Text>
                                     </View>

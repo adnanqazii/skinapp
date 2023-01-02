@@ -135,7 +135,7 @@ const slides = [
     title: 'Want to treat patients?',
     image: {
       uri:
-        'https://raw.githubusercontent.com/AboutReact/sampleresource/master/intro_mobile_recharge.png',
+        'https://www.pngitem.com/pimgs/b/198-1985222_doctor-icon-png.png',
     },
     backgroundColor: '#20d2bb',
     link:'DoctorLogin'
@@ -146,7 +146,7 @@ const slides = [
     text: 'Log in as patient',
     image: {
       uri:
-        'https://raw.githubusercontent.com/AboutReact/sampleresource/master/intro_flight_ticket_booking.png',
+        'https://cdn4.iconfinder.com/data/icons/medical-situations-flat-happy-hospital/512/Medical_diagnosis-512.png',
     },
     backgroundColor: '#febe29',
     link:'PatientLogin'

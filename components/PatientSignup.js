@@ -20,7 +20,7 @@ const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts
   : `api.example.com`;
 
 const PatientSignup = ({ navigation }) => {
-  const [values, setValues] = useState({ userName: '', userEmail: '', userPassword: '', ConfirmUserPassword: '', userAge: '', userAddress: '' });
+  const [values, setValues] = useState({ userName: '', userEmail: '', userPassword: '', ConfirmUserPassword: '', userAge: '', userAddress: '',history:'' });
 
   const [errortext, setErrortext] = useState('');
   const [
@@ -186,7 +186,18 @@ const PatientSignup = ({ navigation }) => {
               blurOnSubmit={false}
             />
           </View>
-         
+          <View style={styles.SectionStyle}>
+            <TextInput
+              style={styles.inputStyle}
+              onChangeText={(text) => handleChange('history', text)}
+              underlineColorAndroid="#f000"
+              placeholder="Enter History"
+              placeholderTextColor="#8b9cb5"
+              autoCapitalize="sentences"
+              returnKeyType="next"
+              blurOnSubmit={false}
+            />
+          </View>
           {errortext != '' ? (
             <Text style={styles.errorTextStyle}>
               {errortext}
