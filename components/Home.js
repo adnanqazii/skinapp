@@ -113,6 +113,12 @@ const Home = ({ navigation, route }) => {
     // ))}
     //   </View>
     <View style={styles.container}>
+       <TouchableOpacity
+          style={styles.buttonStyle}
+          activeOpacity={0.5}
+          onPress={() => { navigation.navigate('DoctorAccountInfo') }}>
+          <Text style={styles.buttonTextStyle}>View/Change Account Info</Text>
+        </TouchableOpacity>
       {
         appointments.length ? <FlatList
           data={appointments}

@@ -23,6 +23,10 @@ import { DiseaseContext, PatientContext, DoctorContext, AppointmentsContext } fr
 import Drawer from './components/Drawerr'
 import Call from './components/Call'
 import DoctorsAppointments from './components/PatientHome'
+import ViewPatient from './components/ViewPatient'
+import ViewDoctor from './components/ViewDoctor'
+
+import DoctorAccountInfo from './components/DoctorAccountInfo'
 
 
 //import AsyncStorage from '@react-native-community/async-storage'
@@ -32,7 +36,7 @@ export default function App() {
   const PatientState = useState({})
   const DoctorState = useState({})
   const DiseaseState = useState({})
-  const AppointmentsState= useState([])
+  const AppointmentsState = useState([])
   return (
 
 
@@ -40,29 +44,32 @@ export default function App() {
       <PatientContext.Provider value={PatientState}>
         <DoctorContext.Provider value={DoctorState}>
           <DiseaseContext.Provider value={DiseaseState}>
-          <AppointmentsContext.Provider value={AppointmentsState}>
+            <AppointmentsContext.Provider value={AppointmentsState}>
+              <Stack.Navigator initialRouteName="Intro">
+                {/* <Stack.Screen name="Drawer" component={Drawer} /> */}
+              
+                <Stack.Screen name="History" component={History} />
+                <Stack.Screen name="Call" component={Call} />
+                <Stack.Screen name="DoctorsAppointments" component={DoctorsAppointments} />
+                <Stack.Screen name="DoctorAccountInfo" component={DoctorAccountInfo} />
+                <Stack.Screen name="ViewDoctor" component={ViewDoctor} />
 
-            <Stack.Navigator initialRouteName="Intro">
-            {/* <Stack.Screen name="Drawer" component={Drawer} /> */}
-            <Stack.Screen name="History" component={History} />
-            <Stack.Screen name="Call" component={Call} />
-            <Stack.Screen name="DoctorsAppointments" component={DoctorsAppointments} />
+                <Stack.Screen name="ViewPatient" component={ViewPatient} />
 
-
-              <Stack.Screen name="Appointment" component={Appointment} />
-              <Stack.Screen name="Intro" component={Intro} />
-              <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
-              <Stack.Screen name="DoctorSignup" component={DoctorSignup} />
-              <Stack.Screen name="DoctorLogin" component={DoctorLogin} />
-              <Stack.Screen name="PatientLogin" component={PatientLogin} />
-              <Stack.Screen name="PatientSignup" component={PatientSignup} />
-              <Stack.Screen name="PatientHome" component={PatientHome} />
-              <Stack.Screen name="Home" component={Home} />
-              <Stack.Screen name="AdminLogin" component={AdminLogin} />
-              <Stack.Screen name="AdminView" component={AdminView} />
-              <Stack.Screen name="AppointmentBooking" component={AppointmentBooking} />
-            </Stack.Navigator>
-        </AppointmentsContext.Provider>
+                <Stack.Screen name="Appointment" component={Appointment} />
+                <Stack.Screen name="Intro" component={Intro} />
+                <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+                <Stack.Screen name="DoctorSignup" component={DoctorSignup} />
+                <Stack.Screen name="DoctorLogin" component={DoctorLogin} />
+                <Stack.Screen name="PatientLogin" component={PatientLogin} />
+                <Stack.Screen name="PatientSignup" component={PatientSignup} />
+                <Stack.Screen name="PatientHome" component={PatientHome} />
+                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="AdminLogin" component={AdminLogin} />
+                <Stack.Screen name="AdminView" component={AdminView} />
+                <Stack.Screen name="AppointmentBooking" component={AppointmentBooking} />
+              </Stack.Navigator>
+            </AppointmentsContext.Provider>
           </DiseaseContext.Provider>
         </DoctorContext.Provider>
       </PatientContext.Provider>

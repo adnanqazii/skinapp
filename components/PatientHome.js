@@ -21,6 +21,8 @@ import * as ImagePicker from 'expo-image-picker';
 import { ListItem, Avatar } from "@react-native-material/core";
 import Axios from 'axios'
 import Remedies from './Remedies'
+import PatientAccountInfo from './PatientAccountInfo'
+
 import {
   Backdrop,
   AppBar,
@@ -436,6 +438,8 @@ const PatientHome = ({ navigation, route }) => {
         <Drawer.Screen name="Scan Skin Area" component={HomeScreen} options={{ unmountOnBlur: true }} />
         <Drawer.Screen name="Scan Image from Gallery" component={GalleryScreen} options={{ unmountOnBlur: true }} />
         <Drawer.Screen name="Doctors and Appointments" component={DoctorsAppointments} options={{ unmountOnBlur: true }} />
+        <Drawer.Screen name="Change/View Account Info" component={PatientAccountInfo} options={{ unmountOnBlur: true }} />
+
       </Drawer.Navigator>
 
     </View>
